@@ -1,0 +1,5 @@
+global: { scrape_interval: 5s }
+scrape_configs:
+  - job_name: "fhirpulse"
+    static_configs:
+      - targets: ["host.docker.internal:8080"]
