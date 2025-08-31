@@ -42,3 +42,29 @@ model Observation {
   patient   Patient @relation(fields: [patientId], references: [id])
   @@index([patientId, issued])
 }
+
+model DicomStudy {
+  studyInstanceUID String @id
+  patientId        String?
+  studyDate        String?
+  series           DicomSeries[]
+}
+
+model DicomSeries {
+  seriesInstanceUID String @id
+  studyInstanceUID  String
+  modality          String?
+  study             DicomStudy @relation(fields: [studyInstanceUID], references: [studyInstanceUID])
+  instances         DicomInstance[]
+  @@index([studyInstanceUID])
+}
+
+model DicomInstance {
+  sopInstanceUID    String @id
+  seriesInstanceUID String
+  studyInstanceUID  String
+  series            DicomSeries @relation(fields: [seriesInstanceUID], references: [seriesInstanceUID])
+  @@index([seriesInstanceUID])
+  @@index([studyInstanceUID])
+}
+

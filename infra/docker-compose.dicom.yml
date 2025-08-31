@@ -1,0 +1,26 @@
+services:
+  orthanc:
+    image: orthancteam/orthanc:latest
+    container_name: orthanc
+    ports:
+      - "8042:8042"
+      - "4242:4242"
+    volumes:
+      - ./orthanc/orthanc.json:/etc/orthanc/orthanc.json:ro
+      - orthanc_data:/var/lib/orthanc/db
+    environment:
+      - ORTHANC__NAME=FHIRPulse-Orthanc
+
+  ohif:
+    image: ohif/app:latest
+    container_name: ohif
+    ports:
+      - "3001:80"
+    environment:
+      - PUBLIC_URL=/
+      - OIDC_ENABLED=false
+      - DICOMWEB_ENABLED=true
+      - DICOMWEB_SERVERS=[{"name":"Orthanc","wadoUriRoot":"http://localhost:8042/wado","qidoRoot":"http://localhost:8042/dicom-web","wadoRoot":"http://localhost:8042/dicom-web"}]
+
+volumes:
+  orthanc_data:

@@ -1,0 +1,18 @@
+{
+    "Name": "FHIRPulse-Orthanc",
+    "StorageDirectory": "/var/lib/orthanc/db",
+    "AuthenticationEnabled": true,
+    "RegisteredUsers": { "orthanc": "orthanc" },
+    "HttpPort": 8042,
+    "DicomServerEnabled": true,
+    "DicomPort": 4242,
+    "Plugins" : [ ],
+    "HttpDescribeErrors": true,
+    "DicomWeb": {
+      "Enable": true,
+      "Root": "/dicom-web/"
+    },
+    "OrthancPeers" : { },
+    "StableAge" : 5
+  }
+  
